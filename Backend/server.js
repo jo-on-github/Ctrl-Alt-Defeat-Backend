@@ -21,6 +21,9 @@ app.use(express.json());
 const cityRouter = require('./routes/city')
 app.use('/home', cityRouter)
 
+const guideRouter = require('./routes/guide')
+app.use('/guide', guideRouter)
+
 
 const PORT = 3000;
 app.listen(PORT, () => 
