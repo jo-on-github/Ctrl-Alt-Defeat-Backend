@@ -6,6 +6,17 @@ const City = require('../Models/city')
 
 router.post('/', async (req, res) => {
 
+    const city = new City({
+        title: req.body.title,
+        imageURL: req.body.imageURL,
+        activityType: req.body.activityType
+    });
+    try {
+        const newCity = await city.save()
+        res.status(201).json(newCity)
+    } catch (err) { 
+        res.status(400).json({ message: err.message })
+    }
 });
 
 //Read

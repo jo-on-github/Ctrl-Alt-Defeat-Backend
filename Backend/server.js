@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const app = express()
 
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
+const db = mongoose.connection
 
 db.once('open', () => {
     console.log('Connected to Database')
