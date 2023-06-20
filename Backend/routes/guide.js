@@ -41,7 +41,7 @@ guideRouter.get('/:id', async (req, res) => {
 guideRouter.get('/', async (req, res) => {
 
     try {
-        const guides = await Guide.find()
+        const guides = await Guide.find({city: req.query.city});
         res.json(guides)
     } catch (err) {
         res.status(500).json({ message: err.message })
