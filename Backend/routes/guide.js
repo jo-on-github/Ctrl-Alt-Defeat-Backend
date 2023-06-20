@@ -57,7 +57,19 @@ guideRouter.patch('/:id', async (req, res) => {
 //Delete
 
 guideRouter.delete('/:id', async (req, res) => {
-
+    const guide = await Guide.findById(req.params.id)
+    if (guide == null) {
+        return res.status(404).json({ message: 'Cannot find guide' })
+    }
+    try {
+        await guide.deleteOne( { _id: guide })
+        res.json({ message: 'Deleted Guide' })
+    } catch (err) { 
+        res.status(500).json({ message: err.message })
+    }
 });
+
+
+
 
 module.exports = guideRouter
