@@ -1,6 +1,7 @@
 const express = require('express')
 const guideRouter = express.Router()
-const Guide = require('../Models/guide')
+const Guide = require('../Models/guide');
+const city = require('../Models/city');
 
 //Create
 
@@ -9,6 +10,7 @@ guideRouter.post('/', async (req , res) => {
         
     try {
             const guide = new Guide({
+                city: req.body.city,
                 title: req.body.title,
                 author: req.body.author,
                 location: req.body.location,
@@ -39,8 +41,8 @@ guideRouter.get('/:id', async (req, res) => {
 guideRouter.get('/', async (req, res) => {
 
     try {
-        const cities = await City.find()
-        res.json(cities)
+        const guides = await Guide.find()
+        res.json(guides)
     } catch (err) {
         res.status(500).json({ message: err.message })
     }
