@@ -4,18 +4,29 @@ const Guide = require('../Models/guide')
 
 //Create
 
-guideRouter.post('/', async (req, res) => {
-    
-        const guide = new Guide({
-            title: req.body.title,
-            author: req.body.author,
-            location: req.body.location,
-            imageURL: req.body.imageURL,
-            overview: req.body.overview,
-            experience: req.body.experience,
-            reviews: req.body.reviews
-        });
-});
+guideRouter.post('/', async (req , res) => {
+    console.log(req.body)
+        
+    try {
+            const guide = new Guide({
+                title: req.body.title,
+                author: req.body.author,
+                location: req.body.location,
+                imageURL: req.body.imageURL,
+                overview: req.body.overview,
+                experience: req.body.experience,
+                reviews: req.body.reviews,
+                activityType: req.body.activityType,
+       
+            });
+            
+            const savedGuide = await guide.save();
+            res.status(200).send();
+            
+        } catch (err) {
+            res.status(400).json({ message: err.message })
+        }
+    });
 
 //Read
 

@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 const guideSchema = new mongoose.Schema({ 
 
+    city: {
+        type: String,
+        required: true
+    },
+    
     title: {
         type: String,
         
@@ -36,7 +41,12 @@ const guideSchema = new mongoose.Schema({
     reviews: {
         type: String,
         required: true
-    }
+    },
+
+    activityType: {
+        type: String,
+        required: true
+    },
 })
 
 module.exports = mongoose.model('Guide', guideSchema)
