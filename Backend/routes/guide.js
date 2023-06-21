@@ -30,10 +30,18 @@ guideRouter.post('/', async (req , res) => {
         }
     });
 
-//Read
+//Read by ID
 
-guideRouter.get('/:id', async (req, res) => {
+guideRouter.get('/', async (req, res) => {
 
+    try {
+        const chosenGuide = await Guide.find({_id: req.query._id})
+        return res.json(chosenGuide)
+    }
+           
+        catch (err) {
+        res.status(500).json({ message: err.message })
+    }
 });
 
 //Read All
