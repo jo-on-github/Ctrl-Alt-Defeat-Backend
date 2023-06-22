@@ -27,7 +27,7 @@ const guideRouter = require('./routes/guide')
 app.use('/guide', guideRouter)
 
 const userRouter = require('./routes/users')
-app.use('/login/signup', userRouter)
+app.use('/users', userRouter)
 
 
 const PORT = 4000;
