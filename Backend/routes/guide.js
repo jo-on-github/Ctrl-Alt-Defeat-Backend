@@ -30,23 +30,29 @@ guideRouter.post('/', async (req , res) => {
         }
     });
 
-//Read
+    //Read by ID
+    
+    guideRouter.get('/:id', async (req, res) => {
+    
+        try {
+            const guides = await Guide.findById(req.params.id);
+            res.json(guides)
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+    });
+//Read by city
 
-guideRouter.get('/:id', async (req, res) => {
-
-});
-
-//Read All
-
-guideRouter.get('/', async (req, res) => {
-
+guideRouter.get(`/guide?city=${city}`, async (req, res) => {
     try {
         const guides = await Guide.find({city: req.query.city});
         res.json(guides)
     } catch (err) {
-        res.status(500).json({ message: err.message })
+        res.status(500).json({ message: err.message });
     }
 });
+
+
 
 //Update
 
