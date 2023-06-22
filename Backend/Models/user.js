@@ -30,6 +30,12 @@ const userSchema = new mongoose.Schema({
     location: {
         type: String,
         required: true
+    },
+    
+    dateOfSignUp: {
+        type: Date,
+        required: true,
+        default: Date.now
     }
 })
 
