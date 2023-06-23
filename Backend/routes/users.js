@@ -32,6 +32,7 @@ userRouter.post('/', async (req, res) => {
 
     const newUser = await user.save();
 
+    // The below code needs to be refactored to be issued to users that log in and not users that sign up
     // Generate JWT
     const token = jwt.sign(
       { userId: newUser._id }, // Include relevant information in the payload
