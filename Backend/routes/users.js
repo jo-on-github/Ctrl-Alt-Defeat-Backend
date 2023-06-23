@@ -4,6 +4,16 @@ const jwt = require('jsonwebtoken');
 const userRouter = express.Router();
 const User = require('../Models/user');
 
+// User submits signup form on front end
+// Front end sends a post request to /users
+// We create a new user in the database with the hashed password using bcrypt
+// We generate a JWT and send it back to the front end
+// Front end stores the JWT in local storage
+// We create user read & write permissions to the user in the database
+// Once user is logged in, we can use the JWT to verify that they are logged in
+// We can use the JWT to verify that the user has read & write permissions
+
+
 // Create
 userRouter.post('/', async (req, res) => {
   try {
@@ -33,6 +43,8 @@ userRouter.post('/', async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 });
+
+
 
 // Read by ID
 userRouter.get('/:id', async (req, res) => {
