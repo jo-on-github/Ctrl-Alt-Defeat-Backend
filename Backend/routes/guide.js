@@ -57,7 +57,23 @@ guideRouter.get(`/guide?city=${city}`, async (req, res) => {
 //Update
 
 guideRouter.patch('/:id', async (req, res) => {
-
+    try {
+        const id = req.params.id;
+        const newData = req.body;
+    
+        // Find the guide with the given ID and update its data
+        const guide = await Guide.findByIdAndUpdate(id, newData, { new: true });
+    
+        if (!guide) {
+          return res.status(404).json({ message: 'Guide not found' });
+        }
+    
+        // Return the updated guide as JSON
+        res.json(guide);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+      }
 });
 
 //Delete
