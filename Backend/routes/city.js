@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const City = require('../Models/city')
+const verifyToken = require('../middlewares/verifyToken');
 
 //Create
 
@@ -21,13 +22,13 @@ router.post('/', async (req, res) => {
 
 //Read
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', verifyToken, async (req, res) => {
 
 });
 
 //Read All
 
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
 
     try {
         const cities = await City.find()
@@ -39,13 +40,13 @@ router.get('/', async (req, res) => {
 
 //Update
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', verifyToken, async (req, res) => {
 
 });
 
 //Delete
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', verifyToken, async (req, res) => {
 
 });
 

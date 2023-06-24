@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const userRouter = express.Router();
 const User = require('../Models/user');
+const verifyToken = require('../middlewares/verifyToken');
+
 
 // User submits signup form on front end
 // Front end sends a post request to /users
@@ -14,11 +16,10 @@ const User = require('../Models/user');
 // We can use the JWT to verify that the user has read & write permissions
 
 
-// Create
+// Signup
 userRouter.post('/', async (req, res) => {
   try {
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
     const user = new User({
       email: req.body.email,
@@ -32,16 +33,47 @@ userRouter.post('/', async (req, res) => {
 
     const newUser = await user.save();
 
-    // The below code needs to be refactored to be issued to users that log in and not users that sign up
-    // Generate JWT
-    const token = jwt.sign(
-      { userId: newUser._id }, // Include relevant information in the payload
-      process.env.JWT_SECRET, // Use a secret key for signing the token
-    );
+    // // The below code needs to be refactored to be issued to users that log in and not users that sign up
+    // // Generate JWT
+    // const token = jwt.sign(
+    //   { userId: newUser._id }, // Include relevant information in the payload
+    //   process.env.JWT_SECRET, // Use a secret key for signing the token
+    // );
 
-    res.status(201).json({ newUser, token });
+    res.status(201).json({ newUser });
   } catch (err) {
     res.status(400).json({ message: err.message });
+  }
+});
+
+// Login
+
+userRouter.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Find the user in the database based on the provided email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Compare the provided password with the hashed password stored in the database
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Generate a JWT
+    const token = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1m' });
+
+    // Send the JWT to the client
+    res.status(200).json({ token });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ message: 'An error occurred during login' });
   }
 });
 
