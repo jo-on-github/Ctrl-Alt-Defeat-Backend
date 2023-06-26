@@ -4,6 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 
 
+
 const app = express()
 app.use(cors());
 
@@ -29,6 +30,8 @@ app.use('/guide', guideRouter)
 const userRouter = require('./routes/users')
 app.use('/users', userRouter)
 
+const createAGuideRouter = require('./routes/createAGuide')
+app.use('/createAGuide', createAGuideRouter)
 
 const PORT = 4000;
 app.listen(PORT, () => 

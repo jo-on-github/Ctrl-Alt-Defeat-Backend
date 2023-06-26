@@ -40,7 +40,7 @@ const guideSchema = new mongoose.Schema({
 
     reviews: {
         type: String,
-        required: true
+        required: false
     },
 
     activityType: {
