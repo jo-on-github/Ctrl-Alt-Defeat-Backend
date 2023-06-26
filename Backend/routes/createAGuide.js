@@ -1,10 +1,11 @@
 const express = require('express')
-const guideRouter = express.Router()
+const createAGuideRouter = express.Router()
 const CreatedGuide = require('../Models/createAGuide');
 const verifyToken = require('../middlewares/verifyToken');
 const createAGuide = require('../Models/createAGuide');
 
-guideRouter.post('/', verifyToken, async (req , res) => {
+
+createAGuideRouter.post('/', verifyToken, async (req , res) => {
     console.log(req.body)
         
     try {
@@ -26,4 +27,4 @@ guideRouter.post('/', verifyToken, async (req , res) => {
         }
     });
 
-    module.exports = createAGuideRouter;
+   module.exports = createAGuideRouter;

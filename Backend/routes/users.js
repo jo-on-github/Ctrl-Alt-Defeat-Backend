@@ -77,6 +77,16 @@ userRouter.post('/login', async (req, res) => {
   }
 });
 
+// read logged in user by id
+userRouter.get('/login/:id', verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.userId);
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+);
 
 
 // Read by ID
@@ -84,6 +94,16 @@ userRouter.get('/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// read all users
+userRouter.get('/', async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
