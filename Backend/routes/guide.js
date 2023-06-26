@@ -2,10 +2,11 @@ const express = require('express')
 const guideRouter = express.Router()
 const Guide = require('../Models/guide');
 const city = require('../Models/city');
+const verifyToken = require('../middlewares/verifyToken');
 
 //Create
 
-guideRouter.post('/', async (req , res) => {
+guideRouter.post('/', verifyToken, async (req , res) => {
     console.log(req.body)
         
     try {
@@ -32,7 +33,7 @@ guideRouter.post('/', async (req , res) => {
 
     //Read by ID
     
-    guideRouter.get('/:id', async (req, res) => {
+    guideRouter.get('/:id', verifyToken, async (req, res) => {
     
         try {
             const guides = await Guide.findById(req.params.id);
@@ -56,7 +57,10 @@ guideRouter.get(`/guide?city=${city}`, async (req, res) => {
 
 //Update
 
-guideRouter.patch('/:id', async (req, res) => {
+
+guideRouter.patch('/:id', verifyToken, async (req, res) => {
+
+
     try {
         const id = req.params.id;
         const newData = req.body;
@@ -74,6 +78,7 @@ guideRouter.patch('/:id', async (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
       }
+
 });
 
 //Delete
