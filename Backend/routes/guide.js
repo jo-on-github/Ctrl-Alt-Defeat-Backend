@@ -7,7 +7,7 @@ const verifyToken = require('../middlewares/verifyToken');
 
 //Create
 
-guideRouter.post('/', verifyToken, async (req , res) => {
+guideRouter.post('/', async (req , res) => {
     console.log(req.body)
         
     try {
