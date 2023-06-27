@@ -17,6 +17,7 @@ createAGuideRouter.post('/', verifyToken, async (req , res) => {
                 budget: req.body.budget,
                 highlights: req.body.highlights,
                 experience: req.body.experience,
+                authorId: req.body.authorId,
             });
             
             const newGuide = await createdGuide.save();

@@ -4,24 +4,26 @@ const Guide = require('../Models/guide');
 const city = require('../Models/city');
 const verifyToken = require('../middlewares/verifyToken');
 
+
 //Create
 
 guideRouter.post('/', verifyToken, async (req , res) => {
     console.log(req.body)
         
     try {
-            const guide = new Guide({
-                city: req.body.city,
-                title: req.body.title,
-                author: req.body.author,
-                location: req.body.location,
-                imageURL: req.body.imageURL,
-                overview: req.body.overview,
-                experience: req.body.experience,
-                reviews: req.body.reviews,
-                activityType: req.body.activityType,
-       
-            });
+        const guide = new Guide({
+            city: req.body.city,
+            title: req.body.title,
+            author: req.body.author,
+            location: req.body.location,
+            imageURL: req.body.imageURL,
+            overview: req.body.overview,
+            experience: req.body.experience,
+            activityType: req.body.activityType,
+            userId: req.body._id,
+            budget: req.body.budget,
+            highlights: req.body.highlights,
+          });
             
             const savedGuide = await guide.save();
             res.status(200).send();
@@ -44,7 +46,7 @@ guideRouter.post('/', verifyToken, async (req , res) => {
     });
 //Read by city
 
-guideRouter.get(`/guide?city=${city}`, async (req, res) => {
+guideRouter.get(`/guide?city=${city}`, verifyToken, async (req, res) => {
     try {
         const guides = await Guide.find({city: req.query.city});
         res.json(guides)

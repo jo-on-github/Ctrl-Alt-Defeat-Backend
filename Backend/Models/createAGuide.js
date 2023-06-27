@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const user = require('./user');
 
 const createAGuideSchema = new mongoose.Schema({ 
 
@@ -38,7 +39,13 @@ const createAGuideSchema = new mongoose.Schema({
         type: String,
         
         required: true
-    }
+    },
+
+    authorId: {
+        type: String,
+        required: true,
+        default: user._id
+    },  
 
 })
 
