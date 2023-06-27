@@ -46,7 +46,7 @@ guideRouter.post('/', verifyToken, async (req , res) => {
     });
 //Read by city
 
-guideRouter.get(`/guide?city=${city}`, verifyToken, async (req, res) => {
+guideRouter.get(`/guide?city=${city}`,  async (req, res) => {
     try {
         const guides = await Guide.find({city: req.query.city});
         res.json(guides)
