@@ -7,31 +7,55 @@ const verifyToken = require('../middlewares/verifyToken');
 
 //Create
 
-guideRouter.post('/', async (req , res) => {
-    console.log(req.body)
+// guideRouter.post('/', async (req , res) => {
         
-    try {
-        const guide = new Guide({
-            city: req.body.city,
-            title: req.body.title,
-            author: req.body.author,
-            location: req.body.location,
-            imageURL: req.body.imageURL,
-            overview: req.body.overview,
-            experience: req.body.experience,
-            activityType: req.body.activityType,
-            userId: req.body._id,
-            budget: req.body.budget,
-            highlights: req.body.highlights,
-          });
+//     const guide = new Guide({
+//         city: req.body.city,
+//         title: req.body.title,
+//         author: req.body.author,
+//         location: req.body.location,
+//         imageURL: req.body.imageURL,
+//         overview: req.body.overview,
+//         experience: req.body.experience,
+//         activityType: req.body.activityType,
+//         userId: req.body._id,
+//         budget: req.body.budget,
+//         highlights: req.body.highlights,
+//     });
+    
+//     try {
+//             const savedGuide = await guide.save();
+//             res.status(200).send();
             
-            const savedGuide = await guide.save();
-            res.status(200).send();
-            
-        } catch (err) {
-            res.status(400).json({ message: err.message })
-        }
+//         } catch (err) {
+//             res.status(400).json({ message: err.message })
+//         }
+//     });
+
+guideRouter.post('/', async (req , res) => {
+    const guide = new Guide({
+      city: req.body.city,
+      title: req.body.title,
+      author: req.body.author,
+      location: req.body.location,
+      imageURL: req.body.imageURL,
+      overview: req.body.overview,
+      experience: req.body.experience,
+      activityType: req.body.activityType,
+      userId: req.body._id,
+      budget: req.body.budget,
+      highlights: req.body.highlights,
     });
+  
+    try {
+      const savedGuide = await guide.save();
+      // Set the Content-Type header to application/json
+      res.set('Content-Type', 'application/json');
+      res.status(200).send();
+    } catch (err) {
+      res.status(400).json({ message: err.message })
+    }
+  });
 
     //Read by ID
     
