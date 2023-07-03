@@ -31,7 +31,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    
+    favourites: {
+        type: Array,
+        required: false
+    },
     dateOfSignUp: {
         type: Date,
         required: true,
