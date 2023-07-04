@@ -13,4 +13,6 @@ favouritesRouter.get('/:id', async (req, res) => {
     }
 });
 
+modules.exports = favouritesRouter;
+
 

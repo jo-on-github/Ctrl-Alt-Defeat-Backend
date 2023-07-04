@@ -33,6 +33,9 @@ app.use('/users', userRouter)
 const createAGuideRouter = require('./routes/createAGuide')
 app.use('/createAGuide', createAGuideRouter)
 
+const favouritesRouter = require('./routes/favourites')
+app.use('/favourites', favouritesRouter)
+
 const PORT = 4000;
 app.listen(PORT, () => 
 console.log(`Server started on port ${PORT}`)
